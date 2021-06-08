@@ -7,3 +7,26 @@ Content-Type: application/json
     "login": "diego@gmail.com",
     "senha": "123456"
 }
+###
+POST {{baseUrl}}/categorias
+Content-Type: application/json
+
+{
+    "nome": "Tecnologia"
+}
+###
+POST {{baseUrl}}/categorias
+Content-Type: application/json
+
+{
+    "nome": "Tecnologia",
+    "idCategoria": 10
+}
+###
+POST {{baseUrl}}/categorias
+Content-Type: application/json
+
+{
+    "nome": "Celular",
+    "idCategoria": 1
+}
