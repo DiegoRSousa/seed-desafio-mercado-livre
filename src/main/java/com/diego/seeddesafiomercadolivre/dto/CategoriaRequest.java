@@ -3,7 +3,7 @@ package com.diego.seeddesafiomercadolivre.dto;
 import javax.validation.constraints.NotBlank;
 
 import com.diego.seeddesafiomercadolivre.model.Categoria;
-import com.diego.seeddesafiomercadolivre.repositotry.CategoriaRepository;
+import com.diego.seeddesafiomercadolivre.repository.CategoriaRepository;
 import com.diego.seeddesafiomercadolivre.validator.Exists;
 import com.diego.seeddesafiomercadolivre.validator.UniqueValue;
 
