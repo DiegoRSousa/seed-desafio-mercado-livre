@@ -42,11 +42,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 			.antMatchers(HttpMethod.POST, "/usuarios").permitAll()
-			//.antMatchers("/categorias").permitAll()
+			.antMatchers("/categorias").permitAll()
 			.antMatchers(HttpMethod.POST, "/auth").permitAll()
+			.antMatchers("/h2-console/**").permitAll()
 			.anyRequest().authenticated()
 			.and().csrf().disable()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+			.and().headers().frameOptions().sameOrigin()
 			.and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, usuarioRepository), 
 					UsernamePasswordAuthenticationFilter.class);
 	}

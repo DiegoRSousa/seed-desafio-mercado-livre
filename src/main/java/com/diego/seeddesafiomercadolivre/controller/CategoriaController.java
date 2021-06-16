@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.diego.seeddesafiomercadolivre.dto.CategoriaRequest;
 import com.diego.seeddesafiomercadolivre.dto.CategoriaResponse;
+import com.diego.seeddesafiomercadolivre.model.Usuario;
 import com.diego.seeddesafiomercadolivre.repository.CategoriaRepository;
 
 @RestController
@@ -28,7 +30,8 @@ public class CategoriaController {
 	}
 
 	@PostMapping
-	public ResponseEntity<CategoriaResponse> salvar(@RequestBody @Valid CategoriaRequest request) {
+	public ResponseEntity<CategoriaResponse> salvar(@RequestBody @Valid CategoriaRequest request,
+			@AuthenticationPrincipal Usuario usuario) {
 		var categoria = request.toModel(categoriaRepository);
 		categoriaRepository.save(categoria);
 		return new ResponseEntity<>(new CategoriaResponse(categoria), HttpStatus.CREATED);
