@@ -5,6 +5,8 @@ import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +18,7 @@ import com.diego.seeddesafiomercadolivre.model.Produto;
 import com.diego.seeddesafiomercadolivre.model.Usuario;
 import com.diego.seeddesafiomercadolivre.repository.CategoriaRepository;
 import com.diego.seeddesafiomercadolivre.repository.ProdutoRepository;
+import com.diego.seeddesafiomercadolivre.validator.NomeCategoriaValidator;
 
 @RestController
 @RequestMapping("produtos")
@@ -23,6 +26,11 @@ public class ProdutoController {
 
 	private CategoriaRepository categoriaRepository;
 	private ProdutoRepository produtoRepository;
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.addValidators(new NomeCategoriaValidator());
+	}
 	
 	public ProdutoController(CategoriaRepository categoriaRepository, ProdutoRepository produtoRepository) {
 		this.categoriaRepository = categoriaRepository;

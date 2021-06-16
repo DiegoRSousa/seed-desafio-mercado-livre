@@ -1,6 +1,8 @@
 package com.diego.seeddesafiomercadolivre.dto;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,7 +17,6 @@ import com.diego.seeddesafiomercadolivre.model.Produto;
 import com.diego.seeddesafiomercadolivre.model.Usuario;
 import com.diego.seeddesafiomercadolivre.repository.CategoriaRepository;
 import com.diego.seeddesafiomercadolivre.validator.Exists;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ProdutoRequest {
 
@@ -33,28 +34,27 @@ public class ProdutoRequest {
 	@Exists(domainClass = Categoria.class, fieldName = "id")
 	private Long categoriaId;
 	@Size(min = 3)
-	@JsonProperty("caracteristicas")
-	private List<CaracteristicaRequest> caracteristicasRequest;
+	private List<CaracteristicaRequest> caracteristicas;
 	
 	@Deprecated
 	public ProdutoRequest() {}
 	public ProdutoRequest(@NotBlank String nome, @NotNull @Positive BigDecimal valor,
 			@NotNull @PositiveOrZero int quantidadeDisponivel, @Size(min = 1, max = 1000) String descricao,
-			@NotNull Long categoriaId, @Size(min = 3) List<CaracteristicaRequest> caracteristicasRequest) {
+			@NotNull Long categoriaId, @Size(min = 3) List<CaracteristicaRequest> caracteristicas) {
 		super();
 		this.nome = nome;
 		this.valor = valor;
 		this.quantidadeDisponivel = quantidadeDisponivel;
 		this.descricao = descricao;
 		this.categoriaId = categoriaId;
-		this.caracteristicasRequest = caracteristicasRequest;
+		this.caracteristicas = caracteristicas;
 	}
 
 	public Produto toModel(CategoriaRepository categoriaRepository, Usuario usuario) {
 		var categoria = categoriaRepository.getOne(categoriaId);
-		var caracteriscas = caracteristicasRequest.stream().map(CaracteristicaRequest::toModel)
+		var caracteristicasList = caracteristicas.stream().map(CaracteristicaRequest::toModel)
 				.collect(Collectors.toList());
-		return new Produto(nome, valor, quantidadeDisponivel, descricao, categoria, usuario, caracteriscas);
+		return new Produto(nome, valor, quantidadeDisponivel, descricao, categoria, usuario, caracteristicasList);
 	}
 	
 	public String getNome() {
@@ -72,7 +72,17 @@ public class ProdutoRequest {
 	public Long getCategoriaId() {
 		return categoriaId;
 	}
-	public List<CaracteristicaRequest> getCaracteristicasRequest() {
-		return caracteristicasRequest;
+	public List<CaracteristicaRequest> getCaracteristicas() {
+		return caracteristicas;
+	}
+	
+	public List<String> buscaCaracteristicasIguais() {
+		var caracteristicasSet = new HashSet<CaracteristicaRequest>();
+		var nomesIguais = new ArrayList<String>();
+		for(var caracteristica : caracteristicas)
+			if(!caracteristicasSet.add(caracteristica))
+				nomesIguais.add(caracteristica.getNome());
+		
+		return nomesIguais;
 	}
 }
