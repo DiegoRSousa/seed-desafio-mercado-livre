@@ -7,7 +7,7 @@ import org.springframework.validation.Validator;
 import com.diego.seeddesafiomercadolivre.dto.ProdutoRequest;
 
 @Component
-public class NomeCategoriaValidator implements Validator{
+public class NomeCaracteristicaValidator implements Validator{
 
 	@Override
 	public boolean supports(Class<?> clazz) {

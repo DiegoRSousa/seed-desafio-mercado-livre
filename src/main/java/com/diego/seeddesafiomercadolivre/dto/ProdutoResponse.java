@@ -9,6 +9,7 @@ import com.diego.seeddesafiomercadolivre.model.Produto;
 
 public class ProdutoResponse {
 
+	private Long id;
 	private String nome;
 	private BigDecimal valor;
 	private int quantidadeDisponivel;
@@ -22,6 +23,7 @@ public class ProdutoResponse {
 	public ProdutoResponse() {}
 	
 	public ProdutoResponse(Produto produto) {
+		this.id = produto.getId();
 		this.nome = produto.getNome();
 		this.valor = produto.getValor();
 		this.quantidadeDisponivel = produto.getQuantidadeDisponivel();
@@ -33,6 +35,9 @@ public class ProdutoResponse {
 		this.instante = produto.getInstante();
 	}
 	
+	public Long getId() {
+		return id;
+	}
 	public String getNome() {
 		return nome;
 	}

@@ -43,9 +43,9 @@ class CategoriaControllerTest {
 	}
 	
 	@Test
-	@DisplayName("não deve salvar categoria quando nome já existe")
+	@DisplayName("não deve salvar categoria quando nome já existe idCategoria não existe")
 	void test3() {
-		var request = new CategoriaRequest("Tecnologia", 3L);
+		var request = new CategoriaRequest("Tecnologia", 4L);
 		var response = testRestTemplate.postForEntity(URL, request, ValidationError.class);
 		
 		Assertions.assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());

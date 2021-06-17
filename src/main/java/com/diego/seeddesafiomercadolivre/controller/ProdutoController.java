@@ -18,7 +18,7 @@ import com.diego.seeddesafiomercadolivre.model.Produto;
 import com.diego.seeddesafiomercadolivre.model.Usuario;
 import com.diego.seeddesafiomercadolivre.repository.CategoriaRepository;
 import com.diego.seeddesafiomercadolivre.repository.ProdutoRepository;
-import com.diego.seeddesafiomercadolivre.validator.NomeCategoriaValidator;
+import com.diego.seeddesafiomercadolivre.validator.NomeCaracteristicaValidator;
 
 @RestController
 @RequestMapping("produtos")
@@ -29,7 +29,7 @@ public class ProdutoController {
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
-		binder.addValidators(new NomeCategoriaValidator());
+		binder.addValidators(new NomeCaracteristicaValidator());
 	}
 	
 	public ProdutoController(CategoriaRepository categoriaRepository, ProdutoRepository produtoRepository) {

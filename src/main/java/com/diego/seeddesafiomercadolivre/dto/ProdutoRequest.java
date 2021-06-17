@@ -82,7 +82,6 @@ public class ProdutoRequest {
 		for(var caracteristica : caracteristicas)
 			if(!caracteristicasSet.add(caracteristica))
 				nomesIguais.add(caracteristica.getNome());
-		
 		return nomesIguais;
 	}
 }
