@@ -52,7 +52,8 @@ public class Produto {
 
 	public Produto(@NotBlank String nome, @NotNull @Positive BigDecimal valor,
 			@NotNull @PositiveOrZero int quantidadeDisponivel, @Size(min = 1, max = 1000) String descricao,
-			@NotNull Categoria categoria, @NotNull Usuario usuario, @Size(min = 3) List<Caracteristica> caracteristicas) {
+			@NotNull Categoria categoria, @NotNull Usuario usuario, 
+			@Size(min = 3) List<Caracteristica> caracteristicas) {
 		this.nome = nome;
 		this.valor = valor;
 		this.quantidadeDisponivel = quantidadeDisponivel;

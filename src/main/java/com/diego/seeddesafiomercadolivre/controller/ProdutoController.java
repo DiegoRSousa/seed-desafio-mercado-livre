@@ -7,17 +7,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.diego.seeddesafiomercadolivre.dto.ImagemRequest;
 import com.diego.seeddesafiomercadolivre.dto.ProdutoRequest;
 import com.diego.seeddesafiomercadolivre.dto.ProdutoResponse;
 import com.diego.seeddesafiomercadolivre.model.Produto;
 import com.diego.seeddesafiomercadolivre.model.Usuario;
 import com.diego.seeddesafiomercadolivre.repository.CategoriaRepository;
 import com.diego.seeddesafiomercadolivre.repository.ProdutoRepository;
+import com.diego.seeddesafiomercadolivre.service.UploaderFake;
 import com.diego.seeddesafiomercadolivre.validator.NomeCaracteristicaValidator;
 
 @RestController
@@ -26,15 +29,18 @@ public class ProdutoController {
 
 	private CategoriaRepository categoriaRepository;
 	private ProdutoRepository produtoRepository;
+	private UploaderFake uploaderFake;	
 	
-	@InitBinder
+	@InitBinder(value = "ProdutoRequest")
 	public void initBinder(WebDataBinder binder) {
 		binder.addValidators(new NomeCaracteristicaValidator());
 	}
 	
-	public ProdutoController(CategoriaRepository categoriaRepository, ProdutoRepository produtoRepository) {
+	public ProdutoController(CategoriaRepository categoriaRepository, ProdutoRepository produtoRepository,
+			UploaderFake uploaderFake) {
 		this.categoriaRepository = categoriaRepository;
 		this.produtoRepository = produtoRepository;
+		this.uploaderFake = uploaderFake;
 	}
 
 	@PostMapping
@@ -43,5 +49,11 @@ public class ProdutoController {
 		Produto produto = request.toModel(categoriaRepository, usuario);
 		produtoRepository.save(produto);
 		return new ResponseEntity<>(new ProdutoResponse(produto), HttpStatus.CREATED);
+	}
+	
+	@PostMapping("/{id}/imagens")
+	public void addImagens(@PathVariable Long id, @Valid ImagemRequest request) {
+		var links = uploaderFake.envia(request.getImagens());
+		System.out.println(links);
 	}
 }
