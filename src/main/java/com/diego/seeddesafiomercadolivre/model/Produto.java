@@ -3,6 +3,8 @@ package com.diego.seeddesafiomercadolivre.model;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -45,15 +47,17 @@ public class Produto {
 	@OneToMany(cascade = CascadeType.PERSIST)
 	@Size(min = 3)
 	private List<Caracteristica> caracteristicas;
+	@OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
+	private Set<ProdutoImagem> imagens;
 	private LocalDateTime instante = LocalDateTime.now();
 
 	@Deprecated
 	public Produto() {}
 
 	public Produto(@NotBlank String nome, @NotNull @Positive BigDecimal valor,
-			@NotNull @PositiveOrZero int quantidadeDisponivel, @Size(min = 1, max = 1000) String descricao,
-			@NotNull Categoria categoria, @NotNull Usuario usuario, 
-			@Size(min = 3) List<Caracteristica> caracteristicas) {
+			@NotNull @PositiveOrZero int quantidadeDisponivel, 
+			@Size(min = 1, max = 1000) String descricao, @NotNull Categoria categoria,
+			@NotNull Usuario usuario, @Size(min = 3) List<Caracteristica> caracteristicas) {
 		this.nome = nome;
 		this.valor = valor;
 		this.quantidadeDisponivel = quantidadeDisponivel;
@@ -61,6 +65,15 @@ public class Produto {
 		this.categoria = categoria;
 		this.usuario = usuario;
 		this.caracteristicas = caracteristicas;
+	}
+	
+	public void associaImagens(Set<String> links) {
+		this.imagens.addAll(links.stream().map(link 
+				-> new ProdutoImagem(this, link)).collect(Collectors.toSet()));
+	}
+	
+	public boolean pertenceAoUsuario(Usuario usuario) {
+		return this.usuario.equals(usuario);
 	}
 
 	public Long getId() {
@@ -88,8 +101,13 @@ public class Produto {
 	public List<Caracteristica> getCaracteristicas() {
 		return caracteristicas;
 	}
+	
+	public Set<ProdutoImagem> getImagens() {
+		return imagens;
+	}
 
 	public LocalDateTime getInstante() {
 		return instante;
 	}
+	
 }

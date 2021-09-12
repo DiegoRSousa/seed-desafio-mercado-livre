@@ -15,10 +15,10 @@ import org.springframework.web.server.ResponseStatusException;
 public class ControllerExceptionHandler {
 
 	@ExceptionHandler(ResponseStatusException.class)
-	public ResponseEntity<StandardError> objectNotFound(ResponseStatusException e, HttpServletRequest request) {
-		StandardError error = new StandardError(System.currentTimeMillis(), "Not found", e.getMessage(), 
-				request.getRequestURI());
-		return ResponseEntity.status(HttpStatus.NOT_FOUND.value()).body(error);
+	public ResponseEntity<StandardError> responseStatus(ResponseStatusException e, HttpServletRequest request) {
+		StandardError error = new StandardError(System.currentTimeMillis(), e.getStatus().toString(), 
+				e.getMessage(), request.getRequestURI());
+		return ResponseEntity.status(e.getStatus().value()).body(error);
 	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)

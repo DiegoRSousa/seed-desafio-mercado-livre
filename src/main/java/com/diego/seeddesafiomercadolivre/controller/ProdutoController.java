@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.diego.seeddesafiomercadolivre.dto.ImagemRequest;
 import com.diego.seeddesafiomercadolivre.dto.ProdutoRequest;
@@ -20,7 +21,7 @@ import com.diego.seeddesafiomercadolivre.model.Produto;
 import com.diego.seeddesafiomercadolivre.model.Usuario;
 import com.diego.seeddesafiomercadolivre.repository.CategoriaRepository;
 import com.diego.seeddesafiomercadolivre.repository.ProdutoRepository;
-import com.diego.seeddesafiomercadolivre.service.UploaderFake;
+import com.diego.seeddesafiomercadolivre.service.Uploader;
 import com.diego.seeddesafiomercadolivre.validator.NomeCaracteristicaValidator;
 
 @RestController
@@ -29,7 +30,7 @@ public class ProdutoController {
 
 	private CategoriaRepository categoriaRepository;
 	private ProdutoRepository produtoRepository;
-	private UploaderFake uploaderFake;	
+	private Uploader uploaderFake;	
 	
 	@InitBinder(value = "ProdutoRequest")
 	public void initBinder(WebDataBinder binder) {
@@ -37,7 +38,7 @@ public class ProdutoController {
 	}
 	
 	public ProdutoController(CategoriaRepository categoriaRepository, ProdutoRepository produtoRepository,
-			UploaderFake uploaderFake) {
+			Uploader uploaderFake) {
 		this.categoriaRepository = categoriaRepository;
 		this.produtoRepository = produtoRepository;
 		this.uploaderFake = uploaderFake;
@@ -52,8 +53,16 @@ public class ProdutoController {
 	}
 	
 	@PostMapping("/{id}/imagens")
-	public void addImagens(@PathVariable Long id, @Valid ImagemRequest request) {
+	public void addImagens(@PathVariable Long id, @Valid ImagemRequest request,
+			@AuthenticationPrincipal Usuario usuario) {
 		var links = uploaderFake.envia(request.getImagens());
-		System.out.println(links);
+		var produto = produtoRepository.getOne(id);
+		
+		if(!produto.pertenceAoUsuario(usuario))
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+		
+		produto.associaImagens(links);
+		produtoRepository.save(produto);
+		
 	}
 }
