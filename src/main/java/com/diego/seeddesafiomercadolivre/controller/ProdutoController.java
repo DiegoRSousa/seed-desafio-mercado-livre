@@ -59,7 +59,7 @@ public class ProdutoController {
 		var produto = produtoRepository.getOne(id);
 		
 		if(!produto.pertenceAoUsuario(usuario))
-			throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "O produto não pertence ao usuário!");
 		
 		produto.associaImagens(links);
 		produtoRepository.save(produto);

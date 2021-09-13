@@ -16,7 +16,7 @@ public class ControllerExceptionHandler {
 
 	@ExceptionHandler(ResponseStatusException.class)
 	public ResponseEntity<StandardError> responseStatus(ResponseStatusException e, HttpServletRequest request) {
-		StandardError error = new StandardError(System.currentTimeMillis(), e.getStatus().toString(), 
+		StandardError error = new StandardError(System.currentTimeMillis(), e.getReason(), 
 				e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(e.getStatus().value()).body(error);
 	}
