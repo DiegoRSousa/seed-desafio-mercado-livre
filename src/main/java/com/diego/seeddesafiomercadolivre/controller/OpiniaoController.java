@@ -30,7 +30,7 @@ public class OpiniaoController {
 	}
 
 
-	@PostMapping("/produto/{id}/opiniao")
+	@PostMapping("/produtos/{id}/opiniao")
 	public ResponseEntity<OpiniaoResponse> save(@PathVariable Long id, @RequestBody @Valid OpiniaoRequest request, 
 			@AuthenticationPrincipal Usuario usuario) {
 		

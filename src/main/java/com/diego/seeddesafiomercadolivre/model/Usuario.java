@@ -98,7 +98,7 @@ public class Usuario implements UserDetails{
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(login);
 	}
 
 	@Override
@@ -110,7 +110,7 @@ public class Usuario implements UserDetails{
 		if (getClass() != obj.getClass())
 			return false;
 		Usuario other = (Usuario) obj;
-		return Objects.equals(id, other.id);
+		return Objects.equals(login, other.login);
 	}
 	
 }

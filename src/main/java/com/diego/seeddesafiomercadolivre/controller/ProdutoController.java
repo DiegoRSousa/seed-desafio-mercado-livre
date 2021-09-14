@@ -32,7 +32,7 @@ public class ProdutoController {
 	private ProdutoRepository produtoRepository;
 	private Uploader uploaderFake;	
 	
-	@InitBinder(value = "ProdutoRequest")
+	@InitBinder(value = "produtoRequest")
 	public void initBinder(WebDataBinder binder) {
 		binder.addValidators(new NomeCaracteristicaValidator());
 	}
