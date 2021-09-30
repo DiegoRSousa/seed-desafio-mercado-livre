@@ -17,16 +17,20 @@ import com.diego.seeddesafiomercadolivre.model.Pergunta;
 import com.diego.seeddesafiomercadolivre.model.Usuario;
 import com.diego.seeddesafiomercadolivre.repository.PerguntaRepository;
 import com.diego.seeddesafiomercadolivre.repository.ProdutoRepository;
+import com.diego.seeddesafiomercadolivre.service.SendEmail;
 
 @RestController
 public class PerguntaController {
 
 	private ProdutoRepository produtoRepository;
 	private PerguntaRepository perguntaRepository;
+	private SendEmail sendEmail;
 		
-	public PerguntaController(ProdutoRepository produtoRepository, PerguntaRepository perguntaRepository) {
+	public PerguntaController(ProdutoRepository produtoRepository, PerguntaRepository perguntaRepository,
+			SendEmail sendEmail) {
 		this.produtoRepository = produtoRepository;
 		this.perguntaRepository = perguntaRepository;
+		this.sendEmail = sendEmail;
 	}
 
 	@PostMapping("produtos/{id}/pergunta")
@@ -41,7 +45,8 @@ public class PerguntaController {
 		
 		perguntaRepository.save(pergunta);
 		
-		return new ResponseEntity<>(new PerguntaResponse(pergunta), HttpStatus.CREATED);
+		sendEmail.sendPergunta(pergunta);
 		
+		return new ResponseEntity<>(new PerguntaResponse(pergunta), HttpStatus.CREATED);
 	}
 }
