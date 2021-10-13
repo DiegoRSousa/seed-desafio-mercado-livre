@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
@@ -74,6 +75,14 @@ public class Produto {
 	
 	public boolean pertenceAoUsuario(Usuario usuario) {
 		return this.usuario.equals(usuario);
+	}
+	
+	public <T> List<T> mapeiaCaracteristicas(Function<Caracteristica, T> funcaoMapeadora) {
+		return this.caracteristicas.stream().map(funcaoMapeadora).collect(Collectors.toList());
+	}
+	
+	public <T> Set<T> mapeiaImagens(Function<ProdutoImagem, T> funcaoMapeadora) {
+		return this.imagens.stream().map(funcaoMapeadora).collect(Collectors.toSet());
 	}
 
 	public Long getId() {
