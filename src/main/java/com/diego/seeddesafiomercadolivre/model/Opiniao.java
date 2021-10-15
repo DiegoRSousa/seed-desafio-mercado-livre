@@ -1,5 +1,7 @@
 package com.diego.seeddesafiomercadolivre.model;
 
+import java.util.Objects;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -68,4 +70,23 @@ public class Opiniao {
 	public Produto getProduto() {
 		return produto;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(produto, titulo, usuario);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Opiniao other = (Opiniao) obj;
+		return Objects.equals(produto, other.produto) && Objects.equals(titulo, other.titulo)
+				&& Objects.equals(usuario, other.usuario);
+	}
+	
 }

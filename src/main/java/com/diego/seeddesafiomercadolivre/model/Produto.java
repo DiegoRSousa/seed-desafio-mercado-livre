@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -20,6 +22,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.SortNatural;
 
 @Entity
 public class Produto {
@@ -50,6 +54,9 @@ public class Produto {
 	private List<Caracteristica> caracteristicas;
 	@OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
 	private Set<ProdutoImagem> imagens;
+	@OneToMany(mappedBy = "produto")
+	@SortNatural
+	private SortedSet<Pergunta> perguntas = new TreeSet<>();
 	private LocalDateTime instante = LocalDateTime.now();
 
 	@Deprecated
@@ -84,6 +91,11 @@ public class Produto {
 	public <T> Set<T> mapeiaImagens(Function<ProdutoImagem, T> funcaoMapeadora) {
 		return this.imagens.stream().map(funcaoMapeadora).collect(Collectors.toSet());
 	}
+	
+	public <T extends Comparable<T>> SortedSet<T> mapeiaPerguntas(Function<Pergunta, T> funcaoMapeadora) {
+		return this.perguntas.stream().map(funcaoMapeadora)
+				.collect(Collectors.toCollection(TreeSet::new));
+	}
 
 	public Long getId() {
 		return id;
@@ -114,9 +126,12 @@ public class Produto {
 	public Set<ProdutoImagem> getImagens() {
 		return imagens;
 	}
+	
+	public SortedSet<Pergunta> getPerguntas() {
+		return perguntas;
+	}
 
 	public LocalDateTime getInstante() {
 		return instante;
 	}
-	
 }
