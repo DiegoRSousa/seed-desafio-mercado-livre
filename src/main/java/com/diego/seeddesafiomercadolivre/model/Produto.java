@@ -57,6 +57,8 @@ public class Produto {
 	@OneToMany(mappedBy = "produto")
 	@SortNatural
 	private SortedSet<Pergunta> perguntas = new TreeSet<>();
+	@OneToMany(mappedBy="produto")
+	private Set<Opiniao> opinioes;
 	private LocalDateTime instante = LocalDateTime.now();
 
 	@Deprecated
@@ -96,6 +98,10 @@ public class Produto {
 		return this.perguntas.stream().map(funcaoMapeadora)
 				.collect(Collectors.toCollection(TreeSet::new));
 	}
+	
+	public ProdutoOpinioes getOpinioes() {
+		return new ProdutoOpinioes(this.opinioes);
+	}
 
 	public Long getId() {
 		return id;
@@ -134,4 +140,5 @@ public class Produto {
 	public LocalDateTime getInstante() {
 		return instante;
 	}
+	
 }

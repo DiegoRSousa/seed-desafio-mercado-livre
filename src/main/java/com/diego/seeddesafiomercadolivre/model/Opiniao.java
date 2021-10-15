@@ -1,5 +1,6 @@
 package com.diego.seeddesafiomercadolivre.model;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -14,7 +15,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-public class Opiniao {
+public class Opiniao implements Comparable<Opiniao>{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,13 +34,13 @@ public class Opiniao {
 	@NotNull
 	@ManyToOne
 	private Produto produto;
+	private LocalDateTime instante = LocalDateTime.now();
 	
 	@Deprecated
 	public Opiniao() {}
 	
 	public Opiniao(@Min(1) @Max(5) int nota, @NotBlank String titulo,
 			@NotBlank @Size(max = 500) String descricao, @NotNull Usuario usuario, @NotNull Produto produto) {
-		super();
 		this.nota = nota;
 		this.titulo = titulo;
 		this.descricao = descricao;
@@ -70,6 +71,10 @@ public class Opiniao {
 	public Produto getProduto() {
 		return produto;
 	}
+	
+	public LocalDateTime getInstante() {
+		return instante;
+	}
 
 	@Override
 	public int hashCode() {
@@ -87,6 +92,11 @@ public class Opiniao {
 		Opiniao other = (Opiniao) obj;
 		return Objects.equals(produto, other.produto) && Objects.equals(titulo, other.titulo)
 				&& Objects.equals(usuario, other.usuario);
+	}
+
+	@Override
+	public int compareTo(Opiniao o) {
+		return this.getInstante().compareTo(o.getInstante());
 	}
 	
 }

@@ -2,6 +2,7 @@ package com.diego.seeddesafiomercadolivre.dto;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -19,6 +20,9 @@ public class DetalheProdutoResponse {
 	private int quantidadeDisponivel;
 	private List<DetalheProdutoCaracteristicaResponse> caracteristicas;	
 	private SortedSet<String> perguntas = new TreeSet<>();
+	private Set<Map<String,String>> opinioes;
+	private double mediaOpinioes;
+	private int totalOpinioes;
 
 	public DetalheProdutoResponse(Produto produto) {
 		this.imagens = produto.mapeiaImagens(ProdutoImagem::getLink);
@@ -29,6 +33,18 @@ public class DetalheProdutoResponse {
 		this.caracteristicas = produto
 				.mapeiaCaracteristicas(DetalheProdutoCaracteristicaResponse::new);
 		this.perguntas = produto.mapeiaPerguntas(Pergunta::getTitulo);
+		
+		var opinioes = produto.getOpinioes();
+		
+		this.opinioes = opinioes.mapeiaOpinioes(opiniao -> 
+			Map.of("titulo", opiniao.getTitulo(), 
+					"descricao", opiniao.getDescricao(), 
+					"instante", opiniao.getInstante().toString())
+		);
+		
+		this.mediaOpinioes = opinioes.media();
+		this.totalOpinioes = opinioes.total();
+		
 	}
 		
 	public Set<String> getImagens() {
@@ -62,6 +78,17 @@ public class DetalheProdutoResponse {
 
 	public SortedSet<String> getPerguntas() {
 		return perguntas;
-	}	
-	
+	}
+
+	public Set<Map<String, String>> getOpinioes() {
+		return opinioes;
+	}
+
+	public double getMediaOpinioes() {
+		return mediaOpinioes;
+	}
+
+	public int getTotalOpinioes() {
+		return totalOpinioes;
+	}
 }
