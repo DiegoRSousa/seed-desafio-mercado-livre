@@ -1,0 +1,283 @@
+{
+	"info": {
+		"_postman_id": "2e8e07b7-1898-4b9d-89c7-af4d255b8c05",
+		"name": "seed-desafio-mercado-livre",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "usuario salvar",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"login\": \"diego@gmail.com\",\n    \"senha\": \"123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/usuarios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "produto salvar",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJEZXNhZmlvIE1lcmNhZG8gTGl2cmUiLCJzdWIiOiIxIiwiaWF0IjoxNjM0MTI3NzQwLCJleHAiOjE2MzQyMTQxNDB9.hKntQSoyAlRlfmemVnkHV_DV6udVzGn7gxyblk5SjU4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nome\": \"Teclado mecânico redragon\",\n    \"valor\": 1000,\n    \"quantidadeDisponivel\": 2,\n    \"descricao\": \"O teclado mecânico gamer Mitra da Redragon, traz todo poder dos teclados mecânicos para seu setup\",\n    \"categoriaId\": 2,\n    \"caracteristicas\": [ {\n        \"nome\": \"Tipo de switch\",\n        \"descricao\": \"Outemu Red\"\n    }, {\n        \"nome\": \"Cor da retroiluminação\",\n        \"descricao\": \"Vermelho\"\n    }, {\n        \"nome\": \"Idioma\",\n        \"descricao\": \"Português Brasil\"\n    } ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/produtos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"produtos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "auth",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"login\": \"usr@mail.com\",\n    \"senha\": \"123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/auth",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "categoria salvar",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nome\": \"Teclado\",\n    \"idCategoria\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/categorias",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"categorias"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Produto imagem",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJEZXNhZmlvIE1lcmNhZG8gTGl2cmUiLCJzdWIiOiIxIiwiaWF0IjoxNjM0MjE0NDY2LCJleHAiOjE2MzQzMDA4NjZ9.L9fuBrMgDux1prcKbgtNT26xqoYiLZ2WnBqrM-e6uOA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "imagens",
+							"type": "file",
+							"src": "/home/diego/Imagens/teclado-logitech.webp"
+						},
+						{
+							"key": "imagens",
+							"type": "file",
+							"src": "/home/diego/Imagens/download.jpeg"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/produtos/1/imagens",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"produtos",
+						"1",
+						"imagens"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pergunta",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJEZXNhZmlvIE1lcmNhZG8gTGl2cmUiLCJzdWIiOiIxIiwiaWF0IjoxNjM0MjE0NDY2LCJleHAiOjE2MzQzMDA4NjZ9.L9fuBrMgDux1prcKbgtNT26xqoYiLZ2WnBqrM-e6uOA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"titulo\": \"Qual a garantia do produto?\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/produtos/1/pergunta",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"produtos",
+						"1",
+						"pergunta"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "detalhes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/produtos/1/detalhes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"produtos",
+						"1",
+						"detalhes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "opiniao",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJEZXNhZmlvIE1lcmNhZG8gTGl2cmUiLCJzdWIiOiIxIiwiaWF0IjoxNjM0MjE0NDY2LCJleHAiOjE2MzQzMDA4NjZ9.L9fuBrMgDux1prcKbgtNT26xqoYiLZ2WnBqrM-e6uOA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nota\": \"5\",\n    \"titulo\": \"asexcelente produto\",\n    \"descricao\": \"atendeu a todas as expectativas\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/produtos/1/opiniao",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"produtos",
+						"1",
+						"opiniao"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
