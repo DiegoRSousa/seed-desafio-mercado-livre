@@ -2,7 +2,10 @@ package com.diego.seeddesafiomercadolivre.controller;
 
 import com.diego.seeddesafiomercadolivre.dto.CompraRequest;
 import com.diego.seeddesafiomercadolivre.dto.CompraResponse;
+import com.diego.seeddesafiomercadolivre.dto.ProdutoCompraRequest;
+import com.diego.seeddesafiomercadolivre.dto.ProdutoRequest;
 import com.diego.seeddesafiomercadolivre.model.Compra;
+import com.diego.seeddesafiomercadolivre.model.Produto;
 import com.diego.seeddesafiomercadolivre.repository.CompraRepository;
 import com.diego.seeddesafiomercadolivre.repository.ProdutoRepository;
 import org.springframework.http.HttpStatus;

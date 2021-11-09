@@ -23,6 +23,7 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 
+import io.jsonwebtoken.lang.Assert;
 import org.hibernate.annotations.SortNatural;
 
 @Entity
@@ -75,6 +76,15 @@ public class Produto {
 		this.categoria = categoria;
 		this.usuario = usuario;
 		this.caracteristicas = caracteristicas;
+	}
+
+	public boolean atualizaEstoque(@Positive int quantidade) {
+		Assert.isTrue(quantidade > 0, "A quantidade deve ser maior que zero " + quantidade);
+		if(this.quantidadeDisponivel >= quantidade) {
+			this.quantidadeDisponivel -= quantidade;
+			return true;
+		}
+		return false;
 	}
 	
 	public void associaImagens(Set<String> links) {
