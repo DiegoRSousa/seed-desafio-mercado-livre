@@ -17,7 +17,8 @@ public class Compra {
     @Positive
     private BigDecimal total;
     @Size(min = 1)
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "compra")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name ="compra_Id")
     private Set<ProdutoCompra> produtos;
 
     @Deprecated

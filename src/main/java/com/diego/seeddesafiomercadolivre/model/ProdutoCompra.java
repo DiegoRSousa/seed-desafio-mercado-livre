@@ -15,8 +15,6 @@ public class ProdutoCompra {
     @NotNull
     @ManyToOne
     private Produto produto;
-    @ManyToOne
-    private Compra compra;
 
     public ProdutoCompra() {}
 

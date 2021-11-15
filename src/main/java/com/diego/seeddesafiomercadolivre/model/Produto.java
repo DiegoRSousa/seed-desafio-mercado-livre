@@ -78,13 +78,11 @@ public class Produto {
 		this.caracteristicas = caracteristicas;
 	}
 
-	public boolean atualizaEstoque(@Positive int quantidade) {
+	public void atualizaEstoque(@Positive int quantidade) {
 		Assert.isTrue(quantidade > 0, "A quantidade deve ser maior que zero " + quantidade);
-		if(this.quantidadeDisponivel >= quantidade) {
-			this.quantidadeDisponivel -= quantidade;
-			return true;
-		}
-		return false;
+		Assert.isTrue(quantidade > quantidadeDisponivel,
+				"O produto não tem estoque suficiente");
+		this.quantidadeDisponivel -= quantidade;
 	}
 	
 	public void associaImagens(Set<String> links) {
