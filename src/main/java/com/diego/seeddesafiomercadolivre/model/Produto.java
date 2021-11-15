@@ -80,7 +80,7 @@ public class Produto {
 
 	public void atualizaEstoque(@Positive int quantidade) {
 		Assert.isTrue(quantidade > 0, "A quantidade deve ser maior que zero " + quantidade);
-		Assert.isTrue(quantidade > quantidadeDisponivel,
+		Assert.isTrue(quantidade <= quantidadeDisponivel,
 				"O produto não tem estoque suficiente");
 		this.quantidadeDisponivel -= quantidade;
 	}

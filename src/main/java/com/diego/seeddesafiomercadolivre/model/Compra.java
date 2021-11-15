@@ -20,12 +20,17 @@ public class Compra {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name ="compra_Id")
     private Set<ProdutoCompra> produtos;
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private GatewayPagamento gatewayPagamento;
 
     @Deprecated
     public Compra(){}
-    public Compra(@NotNull @Positive BigDecimal total, @Size(min = 1) Set<ProdutoCompra> produtos) {
+    public Compra(@NotNull @Positive BigDecimal total, @Size(min = 1) Set<ProdutoCompra> produtos,
+                  @NotNull GatewayPagamento gatewayPagamento) {
         this.total = total;
         this.produtos = produtos;
+        this.gatewayPagamento = gatewayPagamento;
     }
 
     public Long getId() {
@@ -38,5 +43,9 @@ public class Compra {
 
     public Set<ProdutoCompra> getProdutos() {
         return produtos;
+    }
+
+    public GatewayPagamento getGatewayPagamento() {
+        return gatewayPagamento;
     }
 }

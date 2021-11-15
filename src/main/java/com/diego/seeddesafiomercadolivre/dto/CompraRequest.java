@@ -1,6 +1,7 @@
 package com.diego.seeddesafiomercadolivre.dto;
 
 import com.diego.seeddesafiomercadolivre.model.Compra;
+import com.diego.seeddesafiomercadolivre.model.GatewayPagamento;
 import com.diego.seeddesafiomercadolivre.repository.ProdutoRepository;
 
 import javax.validation.Valid;
@@ -16,18 +17,22 @@ public class CompraRequest {
     @Size(min = 1)
     @Valid
     private List<ProdutoCompraRequest> produtos;
+    @NotNull
+    private GatewayPagamento gatewayPagamento;
 
     @Deprecated
     public CompraRequest() {}
 
-    public CompraRequest(BigDecimal total, List<ProdutoCompraRequest> produtos) {
+    public CompraRequest(BigDecimal total, List<ProdutoCompraRequest> produtos,
+                         GatewayPagamento gatewayPagamento) {
         this.total = total;
         this.produtos = produtos;
+        this.gatewayPagamento = gatewayPagamento;
     }
 
     public Compra toModel(ProdutoRepository produtoRepository) {
         return new Compra(total, produtos.stream().map(item
-                -> item.toModel(produtoRepository)).collect(Collectors.toSet()));
+                -> item.toModel(produtoRepository)).collect(Collectors.toSet()), gatewayPagamento);
     }
 
     public BigDecimal getTotal() {
@@ -36,5 +41,9 @@ public class CompraRequest {
 
     public List<ProdutoCompraRequest> getProdutos() {
         return produtos;
+    }
+
+    public GatewayPagamento getGatewayPagamento() {
+        return gatewayPagamento;
     }
 }
