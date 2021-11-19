@@ -148,5 +148,8 @@ public class Produto {
 	public LocalDateTime getInstante() {
 		return instante;
 	}
-	
+
+	public boolean temEstoqueSuficiente(int quantidade) {
+		return quantidadeDisponivel < quantidade;
+	}
 }

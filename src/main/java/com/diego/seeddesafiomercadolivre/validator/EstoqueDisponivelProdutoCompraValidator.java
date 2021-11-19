@@ -32,7 +32,7 @@ public class EstoqueDisponivelProdutoCompraValidator implements Validator {
         for(int i = 0; i < produtosRequest.size(); i++) {
             var produtoId = produtosRequest.get(i).getProdutoId();
             var produto = produtoRepository.getOne(produtoId);
-            if(produto.getQuantidadeDisponivel() < produtosRequest.get(i).getQuantidade()) {
+            if(produto.temEstoqueSuficiente(produtosRequest.get(i).getQuantidade())) {
                 errors.rejectValue("produtos["+i+"].produtoId",
                         null,
                         "nao tem estoque suficiente, quantidade disponível: "
