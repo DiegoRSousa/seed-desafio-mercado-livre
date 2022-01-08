@@ -150,6 +150,6 @@ public class Produto {
 	}
 
 	public boolean temEstoqueSuficiente(int quantidade) {
-		return quantidadeDisponivel < quantidade;
+		return quantidadeDisponivel >= quantidade;
 	}
 }

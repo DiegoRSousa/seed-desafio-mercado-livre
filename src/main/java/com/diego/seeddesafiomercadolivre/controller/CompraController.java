@@ -39,7 +39,7 @@ public class CompraController {
     }
 
     @PostMapping
-    public ResponseEntity<?> save(@RequestBody @Valid CompraRequest request,
+    public ResponseEntity<String> save(@RequestBody @Valid CompraRequest request,
                                      UriComponentsBuilder uriComponentBuilder) {
         var url = "";
         Compra compra = request.toModel(produtoRepository);

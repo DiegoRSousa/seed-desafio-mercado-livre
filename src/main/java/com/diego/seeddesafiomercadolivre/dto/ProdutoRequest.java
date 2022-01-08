@@ -41,7 +41,6 @@ public class ProdutoRequest {
 	public ProdutoRequest(@NotBlank String nome, @NotNull @Positive BigDecimal valor,
 			@NotNull @PositiveOrZero int quantidadeDisponivel, @Size(min = 1, max = 1000) String descricao,
 			@NotNull Long categoriaId, @Size(min = 3) List<CaracteristicaRequest> caracteristicas) {
-		super();
 		this.nome = nome;
 		this.valor = valor;
 		this.quantidadeDisponivel = quantidadeDisponivel;

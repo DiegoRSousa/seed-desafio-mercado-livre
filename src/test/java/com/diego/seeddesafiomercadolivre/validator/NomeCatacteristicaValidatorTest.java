@@ -14,7 +14,7 @@ import org.springframework.validation.BeanPropertyBindingResult;
 import com.diego.seeddesafiomercadolivre.dto.CaracteristicaRequest;
 import com.diego.seeddesafiomercadolivre.dto.ProdutoRequest;
 
-class NomeCategoriaValidatorTest {
+class NomeCatacteristicaValidatorTest {
 
 	@ParameterizedTest
 	@MethodSource("gerador")

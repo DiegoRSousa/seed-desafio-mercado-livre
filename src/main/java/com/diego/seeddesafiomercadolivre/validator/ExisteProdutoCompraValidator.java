@@ -1,10 +1,8 @@
 package com.diego.seeddesafiomercadolivre.validator;
 
 import com.diego.seeddesafiomercadolivre.dto.CompraRequest;
-import com.diego.seeddesafiomercadolivre.dto.ProdutoCompraRequest;
-import com.diego.seeddesafiomercadolivre.dto.ProdutoRequest;
 import com.diego.seeddesafiomercadolivre.repository.ProdutoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
